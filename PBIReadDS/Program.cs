@@ -32,10 +32,12 @@ namespace PBIReadDS
 
         static void Main(string[] args)
         {
-            string clientID = "e7c4192b-4eb4-46af-9a0c-ffd54b7bc0f2";
-            string TenantId = "7f017d74-7112-456d-bbc8-6558888a90a1";
-            string ClientSecret = ".I78Q~fO9JL~ASOxpnA.ReWXKLC2ltnb-gicjbss";
-            string datasetId = "e3ba3167-148d-4410-b57e-8db945d1f2bf";
+            string clientID = "<Your Client ID>";
+            string TenantId = "<Your Tenant ID>";
+            string ClientSecret = "<Your Client Secret>";
+            string datasetId = "<Your Dataset ID>";
+            
+            //Replace with your query formated as Json
             string query = "{\"queries\": [{\"query\": \"EVALUATE TOPN( 10, VALUES(Sales))\"}],\"serializerSettings\": {\"includeNulls\": true}}";
 
             string token = GetAccessTokenWithLocalCredential(clientID, ClientSecret, TenantId);
