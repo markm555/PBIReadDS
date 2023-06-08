@@ -27,7 +27,7 @@ namespace PBIReadDS
                 .Build();                                                             //
             string[] scopes = { "https://analysis.windows.net/powerbi/api/.default" };
             var authResult = appConfidential.AcquireTokenForClient(scopes).ExecuteAsync().Result;  // Call API and store response in results
-            return authResult.AccessToken;  // Return the AccessToken from the results to the caller
+            return authResult.AccessToken;                                                         // Return the AccessToken from the results to the caller
         }
 
         static void Main(string[] args)
@@ -40,16 +40,16 @@ namespace PBIReadDS
             //Replace with your query formated as Json
             string query = "{\"queries\": [{\"query\": \"EVALUATE TOPN( 10, VALUES(Sales))\"}],\"serializerSettings\": {\"includeNulls\": true}}";  // DAX Query
 
-            string token = GetAccessTokenWithLocalCredential(clientID, ClientSecret, TenantId);  // Pull Access Token using above function
+            string token = GetAccessTokenWithLocalCredential(clientID, ClientSecret, TenantId);                               // Pull Access Token using above function
 
             HttpClient client = new HttpClient();  // setup to make a REST API Call
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);  // Set up REST API header info
-            string url = $"https://api.powerbi.com/v1.0/myorg/datasets/{datasetId}/executeQueries";  // REST API url
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);                      // Set up REST API header info
+            string url = $"https://api.powerbi.com/v1.0/myorg/datasets/{datasetId}/executeQueries";                           // REST API url
             var response = client.PostAsync(url, new StringContent(query, UnicodeEncoding.UTF8, "application/json")).Result;  // Make API call using HttpClient
-            var jsonResponse = response.Content.ReadAsStringAsync().Result; // Store response in Result
-            JToken jtoken = JToken.Parse(jsonResponse);  // Setup to deserialize JSON response
-            JArray result = (JArray)jtoken.SelectToken("results"); // Pull the JSON array our of results
-            Console.WriteLine(result);  // Display the results in a Console window.
+            var jsonResponse = response.Content.ReadAsStringAsync().Result;                                                   // Store response in Result
+            JToken jtoken = JToken.Parse(jsonResponse);                                                                       // Setup to deserialize JSON response
+            JArray result = (JArray)jtoken.SelectToken("results");                                                            // Pull the JSON array our of results
+            Console.WriteLine(result);                                                                                        // Display the results in a Console window.
         }
     }
 }
