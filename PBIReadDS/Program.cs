@@ -42,7 +42,7 @@ namespace PBIReadDS
 
             string token = GetAccessTokenWithLocalCredential(clientID, ClientSecret, TenantId);                               // Pull Access Token using above function
 
-            HttpClient client = new HttpClient();  // setup to make a REST API Call
+            HttpClient client = new HttpClient();                                                                             // setup to make a REST API Call
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);                      // Set up REST API header info
             string url = $"https://api.powerbi.com/v1.0/myorg/datasets/{datasetId}/executeQueries";                           // REST API url
             var response = client.PostAsync(url, new StringContent(query, UnicodeEncoding.UTF8, "application/json")).Result;  // Make API call using HttpClient
